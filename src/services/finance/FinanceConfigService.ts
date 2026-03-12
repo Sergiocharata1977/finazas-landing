@@ -1,4 +1,4 @@
-import { db } from '@/firebase/adminConfig';
+import { getAdminFirestore } from '@/lib/firebase/admin';
 import type { FinanceTenantConfig } from '@/types/financeConfig';
 import { FINANCE_CONFIG_DEFAULTS } from '@/types/financeConfig';
 
@@ -12,6 +12,7 @@ export class FinanceConfigService {
    * Si no existe en Firestore, devuelve los defaults del modelo Excel.
    */
   static async get(orgId: string): Promise<FinanceTenantConfig> {
+    const db = getAdminFirestore();
     const ref = db
       .collection(COLLECTION)
       .doc(orgId)
@@ -40,6 +41,7 @@ export class FinanceConfigService {
     config: Omit<FinanceTenantConfig, 'organization_id' | 'updated_at'>,
     updatedBy: string
   ): Promise<FinanceTenantConfig> {
+    const db = getAdminFirestore();
     const ref = db
       .collection(COLLECTION)
       .doc(orgId)

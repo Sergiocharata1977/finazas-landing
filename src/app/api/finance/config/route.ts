@@ -64,7 +64,7 @@ export const GET = withAuth(
     const config = await FinanceConfigService.get(auth.organizationId);
     return NextResponse.json({ data: config });
   },
-  { roles: READ_ROLES }
+  { roles: [...READ_ROLES] as any }
 );
 
 // ---------------------------------------------------------------------------
@@ -100,5 +100,5 @@ export const PUT = withAuth(
 
     return NextResponse.json({ data: saved });
   },
-  { roles: WRITE_ROLES }
+  { roles: [...WRITE_ROLES] as any }
 );
