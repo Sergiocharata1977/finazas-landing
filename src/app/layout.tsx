@@ -1,23 +1,10 @@
-import { PWARegistrar } from '@/components/pwa/PWARegistrar';
-import { RootStructuredData } from '@/components/seo/StructuredData';
 import { AuthProvider } from '@/contexts/AuthContext';
-import { PostHogProvider } from '@/lib/analytics/posthog-provider';
-import { Analytics } from '@vercel/analytics/react';
 import type { Metadata, Viewport } from 'next';
-import { Inter, Roboto_Mono } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 
-const geistSans = Inter({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
+const inter = Inter({ subsets: ['latin'] });
 
-const geistMono = Roboto_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
-});
-
-// Viewport configuration (Next.js 14+)
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
@@ -28,92 +15,39 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: 'Don Cándido IA - Sistema de Gestión de Calidad ISO 9001',
+  title: 'Don Cándido Finanzas — Gestión de Préstamos Personales',
   description:
-    'Don Cándido es tu asistente inteligente para implementar y gestionar tu Sistema de Gestión de Calidad ISO 9001:2015. Automatiza procesos, genera documentos y obtiene tu certificación más rápido.',
+    'Plataforma multi-tenant para financieras, cooperativas y mutuales. Automatiza cuotas, cobranzas y contabilidad de tu cartera de préstamos personales.',
   keywords: [
-    'ISO 9001',
-    'gestión de calidad',
-    'SGC',
-    'Don Cándido',
-    'certificación ISO',
-    'calidad',
-    'auditoría',
-    'mejora continua',
-    'sistema de gestión',
+    'préstamos personales',
+    'gestión de cartera',
+    'financiera',
+    'cooperativa',
+    'mutual',
+    'cuotas',
+    'cobranzas',
+    'sistema francés',
+    'multi-tenant',
+    'contabilidad automática',
   ],
-  authors: [{ name: 'Don Cándido IA' }],
+  authors: [{ name: 'Don Cándido Finanzas' }],
   creator: 'Don Cándido IA',
   publisher: 'Don Cándido IA',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  manifest: '/manifest.json',
-  icons: {
-    icon: [
-      { url: '/don-candido-favicon.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
-    ],
-    apple: [{ url: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
-    shortcut: '/don-candido-favicon.png',
-  },
-  // Open Graph for social sharing
+  robots: { index: true, follow: true },
   openGraph: {
     type: 'website',
     locale: 'es_AR',
-    url: 'https://www.doncandidoia.com',
-    siteName: 'Don Cándido IA',
-    title: 'Don Cándido IA - Sistema ISO 9001 con Inteligencia Artificial',
+    siteName: 'Don Cándido Finanzas',
+    title: 'Don Cándido Finanzas — Préstamos Personales Multi-Tenant',
     description:
-      'Implementa tu Sistema de Gestión de Calidad ISO 9001:2015 con la ayuda de Don Cándido, tu asistente de IA especializado en calidad.',
-    images: [
-      {
-        url: 'https://www.doncandidoia.com/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'Don Cándido IA - Sistema ISO 9001',
-      },
-    ],
+      'Gestioná tu cartera de préstamos personales con cuotas automáticas, cobranzas y contabilidad integrada.',
   },
-  // Twitter Card
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Don Cándido IA - Sistema ISO 9001',
-    description: 'Asistente inteligente para gestión de calidad ISO 9001:2015',
-    images: ['https://www.doncandidoia.com/og-image.png'],
-    creator: '@doncandidoia',
-  },
-  // Apple Web App
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Don Cándido IA',
+    title: 'Don Cándido Finanzas',
   },
-  formatDetection: {
-    telephone: false,
-  },
-  // Verification (add your codes when you have them)
-  verification: {
-    google: 'your-google-verification-code',
-  },
-  // Canonical and alternates
-  alternates: {
-    canonical: 'https://www.doncandidoia.com',
-    languages: {
-      'es-AR': 'https://www.doncandidoia.com',
-      es: 'https://www.doncandidoia.com',
-    },
-  },
-  // Category
-  category: 'technology',
+  formatDetection: { telephone: false },
 };
 
 export default function RootLayout({
@@ -123,18 +57,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" suppressHydrationWarning>
-      <head>
-        <meta name="mobile-web-app-capable" content="yes" />
-      </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <PostHogProvider />
+      <body className={inter.className} suppressHydrationWarning>
         <AuthProvider>{children}</AuthProvider>
-        <RootStructuredData />
-        <PWARegistrar />
-        <Analytics />
       </body>
     </html>
   );
